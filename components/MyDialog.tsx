@@ -1,8 +1,6 @@
 import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { createClient } from "@supabase/supabase-js";
-import { supabaseKey, supabaseUrl } from "../config";
-import { UploadImage, createData, getAllData } from "../lib/Supabase";
+import { UploadImage, createData } from "../lib/Supabase";
 
 export const MyDialog = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -22,9 +20,8 @@ export const MyDialog = () => {
       return;
     }
     const image = await UploadImage("",file);
-    await createData(image.name, image.url);
+    // await createData(image.name, image.url);
 
-    // await getAllData();
     closeModal()
   };
   // create a preview as a side effect, whenever selected file is changed
