@@ -1,16 +1,65 @@
 import { createClient } from "@supabase/supabase-js";
+import { supabaseKey, supabaseUrl } from "../config";
+let supabaseAdmin = createClient(supabaseUrl, supabaseKey);
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
-const supabaseAdmin = createClient(url, key);
-export async function UploadImage(file: string, name: string) {
-  //   const avatarFile = event.target.files[0];
+export async function getAllGallery() {
+  const { data, error } = await supabaseAdmin.from("Gallery").select();
+  // console.log(data);
+  if (error) console.log(error);
+  return data;
+}
+
+export async function getImageByGallery(name: string) {
+  const { data, error } = await supabaseAdmin
+    .from("Images")
+    .select("id, name, url, tag")
+    .eq("gallery_name", name);
+  // console.log(data);
+  if (error) console.log(error);
+  return data;
+}
+
+export async function createData(
+  galleryName: string,
+  fileName: string,
+  url: string
+) {
+  await supabaseAdmin.from("Gallery").insert({ name: galleryName, cover: url });
+
+  const { data, error } = await supabaseAdmin
+    .from("Images")
+    .insert({ name: fileName, url: url, gallery_name: galleryName });
+  // console.log(data);
+  if (error) console.log("CreateData", error);
+
+  return data;
+}
+
+// Storage
+export async function UploadImage(folder: string, file: File) {
+  let fileName =
+    folder + "/" + encodeURIComponent(file.name) + Date.now().toString();
+  const { error } = await supabaseAdmin.storage
+    .from("images")
+    .upload(fileName, file);
+  if (error) console.log(error);
+
+  const { data } = supabaseAdmin.storage.from("images").getPublicUrl(fileName);
+  console.log("URL=", data.publicUrl);
+  const image = {
+    name: fileName,
+    url: data.publicUrl,
+  };
+  return image;
+}
+export async function createFolder() {}
+
+export async function getImageFolder(folderName: string) {
   const { data, error } = await supabaseAdmin.storage
     .from("images")
-    .upload(name, file);
-}
-export async function getAllData() {
-  const { data } = await supabaseAdmin.from("images").select();
-  console.log(data);
-  return data
+    .list(folderName);
+  // console.log(data);
+
+  if (error) console.log(error);
+  return data;
 }

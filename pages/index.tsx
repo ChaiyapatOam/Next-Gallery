@@ -1,24 +1,30 @@
-import Image from "next/image";
+import { useState } from "react";
+import Gallery from "../components/ImageList";
+import { getAllGallery } from "../lib/Supabase";
+import { GalleryType, ImageType } from "../types";
 import BlurImage from "../components/BlurImage";
-import { getAllData } from "../lib/Supabase";
-import { ChangeEvent, useState } from "react";
-import { ImageType } from "../types";
+import GalleryCard from "../components/GalleryCard";
 
-const Home = ({ images }: { images: ImageType[] }) => {
-  const [file, setFile] = useState<File>();
-  const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-  };
-  
+const Home = ({ galleries }: { galleries: GalleryType[] }) => {
   return (
-    <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-      <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        {/* Images will go here */}
-        {images.map((image) => (
-          <BlurImage key={image.id} image={image} />
-        ))}
+    <div className="Home">
+      {/* <ImageList images={images} /> */}
+      <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          {/* Images will go here */}
+          {galleries && galleries.length != 0 ? (
+            galleries.map((gallery) => (
+              <GalleryCard
+                key={gallery.id}
+                image={gallery.cover}
+                name={gallery.name}
+                tag={gallery.tag}
+              />
+            ))
+          ) : (
+            <h1 className="text-center text-3xl">No Image yet!</h1>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -27,11 +33,11 @@ const Home = ({ images }: { images: ImageType[] }) => {
 export default Home;
 
 export async function getServerSideProps() {
-  const data = await getAllData();
+  const data = await getAllGallery();
 
   return {
     props: {
-      images: data,
+      galleries: data,
     },
   };
 }
