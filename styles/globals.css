@@ -6,5 +6,5 @@
   @apply text-sm font-extrabold text-blue-600 cursor-pointer;
 }
 .onHover {
-  @apply transform transition duration-500 hover:scale-110;
+  @apply md:transform md:transition md:duration-500 md:hover:scale-110;
 }

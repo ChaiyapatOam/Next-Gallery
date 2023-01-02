@@ -1,13 +1,11 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ImageType } from "../../types";
-import {
-  getAllGallery,
-  getImageByGallery,
-} from "../../lib/Supabase";
+import { getAllGallery, getImageByGallery } from "../../lib/Supabase";
 import BlurImage from "../../components/BlurImage";
 import ImageList from "../../components/ImageList";
 import Head from "next/head";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 function Gallery({ images }: { images: ImageType[] }) {
   const router = useRouter();
@@ -26,29 +24,15 @@ function Gallery({ images }: { images: ImageType[] }) {
 
 export default Gallery;
 
-export async function getStaticPaths() {
-  const galleries = await getAllGallery();
-  // console.log(galleries);
-
-  if (!galleries) return;
-  const paths = galleries.map((item) => {
-    const name = String(item.name);
-    // Should be return as a name of File = [name]
+export async function getServerSideProps(context: any) {
+  if (!context.params.name)
     return {
-      params: { name },
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
     };
-  });
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }: { params: any }) {
-  // console.log("Params",params);
-  const images = await getImageByGallery(params.name);
-
+  const images = await getImageByGallery(context.params.name);
   return {
     props: {
       images,

@@ -69,7 +69,7 @@ export default function BlurImage({ image }: { image: string }) {
                 >
                   <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
-                      as="h3"
+                      as="div"
                       className="flex justify-between text-lg text-center pb-2 font-medium leading-6 text-black"
                     >
                       <div></div>
