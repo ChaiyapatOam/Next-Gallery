@@ -3,5 +3,8 @@
 @tailwind utilities;
 
 .tag {
-@apply text-sm font-extrabold text-blue-600 cursor-pointer     
+  @apply text-sm font-extrabold text-blue-600 cursor-pointer;
+}
+.onHover {
+  @apply transform transition duration-500 hover:scale-110;
 }

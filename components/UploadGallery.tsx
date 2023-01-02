@@ -52,6 +52,7 @@ export const UploadGallery = () => {
     // return () => URL.revokeObjectURL();
   }, [fileList]);
   function closeModal() {
+    setFileList(null)
     setPreview([]);
     setIsOpen(false);
   }
@@ -113,7 +114,7 @@ export const UploadGallery = () => {
                       placeholder="Enter Gallery Name"
                     />
                   </div>
-                  {fileList ? (
+                  {fileList && fileList.length != 0 ? (
                     <div className="text-center">
                       {preview.map((file, idx) => {
                         return (

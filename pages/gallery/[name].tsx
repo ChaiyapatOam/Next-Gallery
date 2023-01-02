@@ -4,11 +4,10 @@ import { ImageType } from "../../types";
 import {
   getAllGallery,
   getImageByGallery,
-  getImageFolder,
 } from "../../lib/Supabase";
-import { GetStaticPaths } from "next";
 import BlurImage from "../../components/BlurImage";
 import ImageList from "../../components/ImageList";
+import Head from "next/head";
 
 function Gallery({ images }: { images: ImageType[] }) {
   const router = useRouter();
@@ -16,7 +15,10 @@ function Gallery({ images }: { images: ImageType[] }) {
 
   return (
     <div>
-      <h1 className="text-2xl px-20">{name} Gallery</h1>
+      <Head>
+        <title>{name}</title>
+      </Head>
+      {/* <h1 className="text-2xl px-20">{name} Gallery</h1> */}
       {images && images.length != 0 ? <ImageList images={images} /> : null}
     </div>
   );

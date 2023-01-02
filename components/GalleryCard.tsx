@@ -42,10 +42,14 @@ export default function GalleryCard({
         </div>
       </Link>
       {/* map tags */}
-      <h3 className="mt-4 tag">#{tag}</h3>
+      {tag ? (
+        <h3 className="mt-4 tag">#{tag}</h3>
+      ) : (
+        <h3 className="mt-4 tag">#{name}</h3>
+      )}
 
       {/* gallery name */}
-      <p className="mt-1 text-lg font-medium text-gray-900">@{name}</p>
+      <p className="mt-1 text-lg font-medium text-gray-900">{name}</p>
     </div>
   );
 }

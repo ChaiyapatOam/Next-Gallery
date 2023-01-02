@@ -22,7 +22,7 @@ export const NavBar = () => {
               </a>
             </Link>
             <nav className="space-x-2 ml-6 hidden lg:block">
-              <Link href="/" legacyBehavior>
+              {/* <Link href="/" legacyBehavior>
                 <a className="inline-flex items-center leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-zinc-200 rounded-md p-1">
                   Pricing
                 </a>
@@ -31,7 +31,7 @@ export const NavBar = () => {
                 <a className="inline-flex items-center leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-zinc-200 rounded-md p-1">
                   Account
                 </a>
-              </Link>
+              </Link> */}
             </nav>
           </div>
           <div className="flex flex-1 justify-end space-x-8">
