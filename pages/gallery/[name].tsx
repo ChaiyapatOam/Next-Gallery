@@ -1,11 +1,10 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { ImageType } from "../../types";
-import { getAllGallery, getImageByGallery } from "../../lib/Supabase";
-import BlurImage from "../../components/BlurImage";
+import { getImageByGallery } from "../../lib/Supabase";
 import ImageList from "../../components/ImageList";
-import Head from "next/head";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { ImageType } from "../../types";
+import Meta from "../../components/Meta";
 
 function Gallery({ images }: { images: ImageType[] }) {
   const router = useRouter();
@@ -13,9 +12,7 @@ function Gallery({ images }: { images: ImageType[] }) {
 
   return (
     <div>
-      <Head>
-        <title>{name}</title>
-      </Head>
+      {/* <Meta title={name} image={images[0]}/> */}
       {/* <h1 className="text-2xl px-20">{name} Gallery</h1> */}
       {images && images.length != 0 ? <ImageList images={images} /> : null}
     </div>
@@ -32,10 +29,15 @@ export async function getServerSideProps(context: any) {
         permanent: false,
       },
     };
-  const images = await getImageByGallery(context.params.name);
+  const name = context.params.name;
+  const images = await getImageByGallery(name);
+  const meta = {
+    title: name,
+  };
   return {
     props: {
       images,
+      meta,
     },
   };
 }

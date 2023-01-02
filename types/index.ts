@@ -20,6 +20,12 @@ export type GalleryType = {
   cover : string;
   tag : string;
 }
+export type MetaType = {
+  title: string | undefined;
+  description: string;
+  image: string;
+  type  : string;
+}
 export type FolderType = {
   id : number;
   name : string;
