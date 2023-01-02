@@ -1,18 +1,13 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { getImageByGallery } from "../../lib/Supabase";
 import ImageList from "../../components/ImageList";
-import { ImageType } from "../../types";
+import { ImageType, MetaType } from "../../types";
 import Meta from "../../components/Meta";
 
-function Gallery({ images }: { images: ImageType[] }) {
-  const router = useRouter();
-  const { name } = router.query;
-
+function Gallery({ images, meta }: { images: ImageType[]; meta: MetaType }) {
   return (
     <div>
-      {/* <Meta title={name} image={images[0]}/> */}
+      <Meta title={meta.title} image={meta.image} type="website" />
       {/* <h1 className="text-2xl px-20">{name} Gallery</h1> */}
       {images && images.length != 0 ? <ImageList images={images} /> : null}
     </div>
@@ -29,11 +24,16 @@ export async function getServerSideProps(context: any) {
         permanent: false,
       },
     };
+
   const name = context.params.name;
   const images = await getImageByGallery(name);
+  if (!images) return;
+
   const meta = {
     title: name,
+    image: images[0].url,
   };
+
   return {
     props: {
       images,

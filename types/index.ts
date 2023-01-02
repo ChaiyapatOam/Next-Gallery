@@ -22,9 +22,8 @@ export type GalleryType = {
 }
 export type MetaType = {
   title: string | undefined;
-  description: string;
   image: string;
-  type  : string;
+  type  : string | "website";
 }
 export type FolderType = {
   id : number;

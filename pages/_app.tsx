@@ -27,16 +27,37 @@ function MyApp({ Component, pageProps }: AppProps) {
       Router.events.off("routeChangeError", end);
     };
   }, []);
+  const meta = {
+    title: "Next Gallery",
+    description: `Website to Upload Image and Gallery create with Next.js , TailwindCSS and Supabase`,
+    image: "/vercel.svg",
+    type: "website",
+  };
   return (
     <div>
+      <Head>
+        <title>Next Gallery</title>
+        <meta name="robots" content="follow, index" />
+        <meta content={meta.description} name="description" />
+        <meta
+          property="og:url"
+          content={`https://next-gallery-supabase.vercel.app${Router.asPath}`}
+        />
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content="ChaiyapatOam" />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {loading ? (
         <Loading />
       ) : (
         <div>
-          <Head>
-            <title>Next Gallery</title>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
           <NavBar />
           <Component {...pageProps} />
         </div>
