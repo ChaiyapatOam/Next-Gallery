@@ -1,8 +1,12 @@
-import { ChangeEvent, Fragment, useEffect, useState } from "react";
+import { ChangeEvent, Fragment, useContext, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { createClient } from "@supabase/supabase-js";
 import { supabaseKey, supabaseUrl } from "../config";
 import { UploadImage, createData } from "../lib/Supabase";
+import { useRouter } from "next/router";
+import Select from "./Select";
+import { GalleryContext } from "../context/GalleryContext";
+import { GalleryType } from "../types";
 
 export const UploadGallery = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -10,9 +14,16 @@ export const UploadGallery = () => {
   const [fileList, setFileList] = useState<FileList | null>(null);
   const [preview, setPreview] = useState<string[]>([]);
 
+  const router = useRouter();
+  const AllGallery = useContext(GalleryContext)?.galleries as GalleryType[];
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFolder(e.target.value);
   };
+
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     let selectedFiles = e.target.files;
     if (selectedFiles) {
@@ -34,6 +45,7 @@ export const UploadGallery = () => {
       await createData(folder, image.name, image.url);
     });
 
+    refreshData();
     closeModal();
   };
 
@@ -52,7 +64,7 @@ export const UploadGallery = () => {
     // return () => URL.revokeObjectURL();
   }, [fileList]);
   function closeModal() {
-    setFileList(null)
+    setFileList(null);
     setPreview([]);
     setIsOpen(false);
   }
@@ -106,13 +118,14 @@ export const UploadGallery = () => {
                     Upload Images
                   </Dialog.Title>
                   {/* Input Gallery */}
-                  <div className="flex justify-center mb-6">
-                    <input
+                  <div className="flex justify-center mb-6 w-full">
+                    {/* <input
                       type="text"
                       className="text-base text-center rounded-md  border border-solid border-gray-300 focus:border-green-500 focus:outline-none"
                       onChange={handleInputChange}
                       placeholder="Enter Gallery Name"
-                    />
+                    /> */}
+                    <Select setFolder={setFolder} galleries={AllGallery} />
                   </div>
                   {fileList && fileList.length != 0 ? (
                     <div className="text-center">

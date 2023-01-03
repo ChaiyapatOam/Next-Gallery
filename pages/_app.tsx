@@ -5,6 +5,7 @@ import { NavBar } from "../components/NavBar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Loading from "../components/Loading";
+import GalleryProvider from "../context/GalleryContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -34,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     type: "website",
   };
   return (
-    <div>
+    <>
       <Head>
         <title>Next Gallery</title>
         <meta name="robots" content="follow, index" />
@@ -57,12 +58,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       {loading ? (
         <Loading />
       ) : (
-        <div>
+        <GalleryProvider>
           <NavBar />
           <Component {...pageProps} />
-        </div>
+        </GalleryProvider>
       )}
-    </div>
+    </>
   );
 }
 

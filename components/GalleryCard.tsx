@@ -19,9 +19,9 @@ export default function GalleryCard({
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <div className="group">
+    <div className="">
       <Link href={`/gallery/${name}`}>
-        <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+        <div className="group onHover w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
           <Image
             alt=""
             src={image}
@@ -43,9 +43,14 @@ export default function GalleryCard({
       </Link>
       {/* map tags */}
       {tag ? (
-        <h3 className="mt-4 tag">#{tag}</h3>
+        <div className="flex items-start">
+          <a className="group mt-4 tag">
+            #{tag}
+            <span className="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-blue-600"></span>
+          </a>
+        </div>
       ) : (
-        <h3 className="mt-4 tag">#{name}</h3>
+        <h3 className="mt-4 tag">#</h3>
       )}
 
       {/* gallery name */}

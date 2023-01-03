@@ -35,6 +35,19 @@ export async function createData(
   return data;
 }
 
+export async function ChangeGalleryCover(
+  galleryName: string,
+  newCover: string
+) {
+  const { data, error } = await supabaseAdmin
+    .from("Gallery")
+    .update({ cover: newCover })
+    .eq("name", galleryName);
+  // console.log(data);
+  if (error) console.log(error);
+  return data;
+}
+
 // Storage
 export async function UploadImage(folder: string, file: File) {
   let fileName =
