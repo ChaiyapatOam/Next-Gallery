@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import { MetaType } from "../types";
+import { NextSeo } from "next-seo";
 
 const Meta = (customMeta?: MetaType) => {
   const defaultMeta = {
@@ -13,14 +14,37 @@ const Meta = (customMeta?: MetaType) => {
   return (
     <Head>
       <title>{meta.title}</title>
+      <meta charSet="utf-8" />
       <meta name="robots" content="follow, index" />
+      <meta name="description" content={meta.description} />
       <meta property="og:type" content={meta.type} />
       <meta property="og:site_name" content={meta.title} />
       <meta property="og:title" content={meta.title} />
       <meta property="og:image" content={meta.image} />
+      <meta name="og:description" content={meta.description} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:image" content={meta.image} />
+      <NextSeo
+        title={meta.title}
+        titleTemplate={meta.title}
+        defaultTitle={meta.title}
+        description={meta.description}
+        canonical="https://next-gallery-supabase.vercel.app/"
+        openGraph={{
+          url: "https://next-gallery-supabase.vercel.app/",
+          title: meta.title,
+          description: meta.description,
+          images: [
+            {
+              url: meta.image,
+              width: 800,
+              height: 420,
+              alt: meta.title,
+            },
+          ],
+        }}
+      />
     </Head>
   );
 };
