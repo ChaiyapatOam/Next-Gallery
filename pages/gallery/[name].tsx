@@ -5,6 +5,7 @@ import { GalleryContextType, ImageType, MetaType } from "../../types";
 import Meta from "../../components/Meta";
 
 function Gallery({ images, meta }: { images: ImageType[]; meta: MetaType }) {
+
   return (
     <div>
       <Meta title={meta.title} image={meta.image} type="website" />

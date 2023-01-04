@@ -3,6 +3,7 @@ import { getAllGallery } from "../lib/Supabase";
 import { GalleryContextType, GalleryType } from "../types";
 import GalleryCard from "../components/GalleryCard";
 import { GalleryContext } from "../context/GalleryContext";
+import Meta from "../components/Meta";
 
 const Home = ({ galleries }: { galleries: GalleryType[] }) => {
   const { saveData } = useContext(GalleryContext) as GalleryContextType;
@@ -12,7 +13,7 @@ const Home = ({ galleries }: { galleries: GalleryType[] }) => {
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {/* Images will go here */}
-
+          <Meta title="Next Gallery" type="website" image="./banner.jpg" />
           {galleries && galleries.length != 0 ? (
             galleries.map((gallery) => (
               <GalleryCard

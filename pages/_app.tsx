@@ -7,8 +7,10 @@ import { useRouter } from "next/router";
 import Loading from "../components/Loading";
 import GalleryProvider from "../context/GalleryContext";
 import Meta from "../components/Meta";
-
-function MyApp({ Component, pageProps }: AppProps) {
+import { MetaType } from "../types";
+import { DefaultSeo } from "next-seo";
+import SEO from "../next-seo.config";
+function MyApp({ Component, pageProps }: AppProps, customMeta: MetaType) {
   const [loading, setLoading] = useState(false);
   const Router = useRouter();
   useEffect(() => {
@@ -29,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       Router.events.off("routeChangeError", end);
     };
   }, []);
-  const meta = {
+  let meta = {
     title: "Next Gallery",
     description: `Website to Upload Image and Gallery create with Next.js , TailwindCSS and Supabase`,
     image: "/banner.jpg",
@@ -37,7 +39,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
   return (
     <>
-      <Meta title={meta.title} type="website" image={meta.image} />
+      {/* <Meta title={meta.title} type="website" image={meta.image} /> */}
+      {/* <DefaultSeo {...SEO} /> */}
       {loading ? (
         <Loading />
       ) : (

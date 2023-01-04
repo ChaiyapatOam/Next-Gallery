@@ -2,7 +2,7 @@ import Head from "next/head";
 import React from "react";
 import { MetaType } from "../types";
 import { NextSeo } from "next-seo";
-
+import SEO from "../next-seo.config";
 const Meta = (customMeta?: MetaType) => {
   const defaultMeta = {
     title: "Next Gallery",
@@ -10,7 +10,18 @@ const Meta = (customMeta?: MetaType) => {
     image: "/banner.jpg",
     type: "website",
   };
-  const meta = Object.assign({}, defaultMeta, customMeta);
+  const meta = {
+    ...SEO,
+    title: customMeta?.title,
+    image: customMeta?.image,
+    type: "website",
+    openGraph: {
+      type: "website",
+      url: "https://next-gallery-supabase.vercel.app/",
+      images: [{ url: customMeta?.image }],
+    },
+  };
+  // const meta = Object.assign({}, defaultMeta, customMeta);
   return (
     <Head>
       <title>{meta.title}</title>
@@ -37,7 +48,7 @@ const Meta = (customMeta?: MetaType) => {
           description: meta.description,
           images: [
             {
-              url: meta.image,
+              url: meta.image as string,
               width: 800,
               height: 420,
               alt: meta.title,
