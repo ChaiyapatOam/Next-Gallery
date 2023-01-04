@@ -2,7 +2,14 @@ import Head from "next/head";
 import React from "react";
 import { MetaType } from "../types";
 
-const Meta = (meta: MetaType) => {
+const Meta = (customMeta?: MetaType) => {
+  const defaultMeta = {
+    title: "Next Gallery",
+    description: `Website to Upload Image and Gallery create with Next.js , TailwindCSS and Supabase`,
+    image: "/banner.jpg",
+    type: "website",
+  };
+  const meta = Object.assign({}, defaultMeta, customMeta);
   return (
     <Head>
       <title>{meta.title}</title>

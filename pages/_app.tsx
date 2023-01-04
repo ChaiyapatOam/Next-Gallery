@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Loading from "../components/Loading";
 import GalleryProvider from "../context/GalleryContext";
+import Meta from "../components/Meta";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -31,30 +32,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   const meta = {
     title: "Next Gallery",
     description: `Website to Upload Image and Gallery create with Next.js , TailwindCSS and Supabase`,
-    image: "/vercel.svg",
+    image: "/banner.jpg",
     type: "website",
   };
   return (
     <>
-      <Head>
-        <title>Next Gallery</title>
-        <meta name="robots" content="follow, index" />
-        <meta content={meta.description} name="description" />
-        <meta
-          property="og:url"
-          content={`https://next-gallery-supabase.vercel.app${Router.asPath}`}
-        />
-        <meta property="og:type" content={meta.type} />
-        <meta property="og:site_name" content="ChaiyapatOam" />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:image" content={meta.image} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={meta.title} />
-        <meta name="twitter:description" content={meta.description} />
-        <meta name="twitter:image" content={meta.image} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Meta title={meta.title} type="website" image={meta.image} />
       {loading ? (
         <Loading />
       ) : (

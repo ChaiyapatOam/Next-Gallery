@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getImageByGallery } from "../../lib/Supabase";
 import ImageList from "../../components/ImageList";
-import { ImageType, MetaType } from "../../types";
+import { GalleryContextType, ImageType, MetaType } from "../../types";
 import Meta from "../../components/Meta";
 
 function Gallery({ images, meta }: { images: ImageType[]; meta: MetaType }) {
@@ -26,8 +26,9 @@ export async function getServerSideProps(context: any) {
     };
 
   const name = context.params.name;
-  const images = await getImageByGallery(name);
+  const images = (await getImageByGallery(name)) as ImageType[];
   if (!images) return;
+  // console.log(images[0].url);
 
   const meta = {
     title: name,

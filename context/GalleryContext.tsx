@@ -11,9 +11,13 @@ const GalleryProvider = ({ children }: { children: React.ReactNode }) => {
   const saveData = (data: GalleryType[]) => {
     setGalleries(data);
   };
+  const getCover = (folderName: string) => {
+    const cover = galleries.find((g) => g.name === folderName)?.cover;
+    return cover;
+  };
 
   return (
-    <GalleryContext.Provider value={{ galleries, saveData }}>
+    <GalleryContext.Provider value={{ galleries, saveData, getCover }}>
       {children}
     </GalleryContext.Provider>
   );

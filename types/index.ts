@@ -23,10 +23,11 @@ export type GalleryType = {
 export type GalleryContextType = {
   galleries: GalleryType[];
   saveData: (data: GalleryType[]) => void;
+  getCover: (folderName: string) => void;
 };
 export type MetaType = {
   title: string | undefined;
-  image: string;
+  image: string | "/banner.jpg";
   type: string | "website";
 };
 export type FolderType = {
