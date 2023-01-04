@@ -1,5 +1,6 @@
 import React from "react";
 import { GalleryType } from "../types";
+import { useRouter } from "next/router";
 
 const Select = ({
   galleries,
@@ -8,6 +9,9 @@ const Select = ({
   galleries: GalleryType[] | [];
   setFolder: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
+  const router = useRouter();
+  const { name } = router.query;
+
   return (
     <div className="relative w-1/2 mx-auto">
       <svg
@@ -23,17 +27,21 @@ const Select = ({
         />
       </svg>
       <select
-        className="w-full p-2.5 text-gray-900 bg-white text-center border rounded-md shadow-sm outline-none appearance-none focus:border-blue-600"
+        className="w-full p-2.5 text-gray-900 font-medium bg-white text-center border rounded-md shadow-sm outline-none appearance-none focus:border-blue-600"
         aria-label="Select Gallery"
         onChange={(e) => setFolder(e.target.value)}
       >
-        {galleries.map((g, id) => {
-          return (
-            <option key={id} value={g.name}>
-              {g.name}
-            </option>
-          );
-        })}
+        {galleries.length != 0 ? (
+          galleries.map((g, id) => {
+            return (
+              <option key={id} value={g.name}>
+                {g.name}
+              </option>
+            );
+          })
+        ) : (
+          <option value={name}>{name}</option>
+        )}
       </select>
     </div>
   );
