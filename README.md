@@ -1,27 +1,45 @@
-# Next.js + Tailwind CSS Example
+# Welcome to Next-Gallery 👋
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+> Website to Upload Image and Gallery create with Next.js , TailwindCSS and Supabase
+## Built With
 
-## Deploy your own
+- [Next.js](https://nextjs.org/)
+- [Supabase](https://supabase.com/)
+- [TailwinCSS](https://tailwindcss.com/)
+- [Vercel](https://vercel.com)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+### ✨ [View the Demo](https://next-gallery-supabase.vercel.app/)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+![Banner](/public/banner.jpg)
 
-## How to use
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+## Installation
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
+```sh
+yarn
 ```
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+## Usage
+
+```sh
+yarn dev
 ```
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+## Author
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+👤 **[@chaiyapatOam](https://github.com/chaiyapatOam)**
+
+
+## Screenshort
+
+| ![Screenshot 2023-01-06 104530](https://user-images.githubusercontent.com/83873103/210929251-88179bf8-73f5-45e2-bc4b-30b30bef08c9.jpg) | ![Screenshot 2023-01-06 104551](https://user-images.githubusercontent.com/83873103/210929255-d93e6617-e86d-4dd9-b8a9-181233eb3ec6.jpg) |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Screenshot 2023-01-06 104602](https://user-images.githubusercontent.com/83873103/210929261-77206097-79ac-4dcc-9d1e-ff9cdf3fa53e.jpg) | ![Screenshot 2023-01-06 104615](https://user-images.githubusercontent.com/83873103/210929263-385eb8ec-92de-4472-bac3-d5c9151954f2.jpg) |
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+---
+
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
