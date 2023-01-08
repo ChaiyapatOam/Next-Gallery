@@ -9,6 +9,7 @@ import {
 } from "../lib/Supabase";
 import { UploadGallery } from "./UploadGallery";
 import Image from "next/image";
+import { NewGallery } from "./NewGallery";
 
 export const NavBar = () => {
   return (
@@ -54,6 +55,7 @@ export const NavBar = () => {
             </nav>
           </div>
           <div className="flex flex-1 justify-end space-x-8">
+            <NewGallery/>
             <UploadGallery />
           </div>
         </div>

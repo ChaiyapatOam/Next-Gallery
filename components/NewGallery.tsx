@@ -1,71 +1,51 @@
-import { ChangeEvent, Fragment, useContext, useEffect, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { UploadImage, createData } from "../lib/Supabase";
-import { useRouter } from "next/router";
-import Select from "./Select";
-import { GalleryContext } from "../context/GalleryContext";
-import { GalleryType } from "../types";
+import { UploadImage, createData, getAllGallery } from "../lib/Supabase";
 
-export const UploadGallery = () => {
+export const NewGallery = () => {
   let [isOpen, setIsOpen] = useState(false);
+  const [file, setFile] = useState<File>();
   const [folder, setFolder] = useState<string | null>(null);
-  const [fileList, setFileList] = useState<FileList | null>(null);
-  const [preview, setPreview] = useState<string[]>([]);
+  const [validfolder, setValidFolder] = useState<boolean>(false);
+  const [preview, setPreview] = useState("");
 
-  const router = useRouter();
-  const { name } = router.query;
-  const AllGallery = useContext(GalleryContext)?.galleries as GalleryType[];
-  const refreshData = () => {
-    router.replace(router.asPath);
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setFolder(e.target.value);
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let selectedFiles = e.target.files;
-    if (selectedFiles) {
-      // console.log(selectedFiles);
-      setFileList(selectedFiles);
+    let selectedFile = e.target.files;
+    if (selectedFile) {
+      console.log(selectedFile);
+
+      setFile(selectedFile[0]);
     }
   };
-
-  let files = fileList ? [...fileList] : [];
-  // 👇 files is not an array, but it's iterable, spread to get an array of files
   const handleUploadClick = async () => {
-    if (!fileList) return;
+    if (!file) return;
     if (!folder) return;
-    if (folder == "" && name != undefined) setFolder(name as string);
-    if (folder == "") setFolder(name as string);
-    // loop to Uploading all Files
-    files.forEach(async (file, i) => {
-      const image = await UploadImage(folder, file);
-      // Todo : Adding Input Foldername
-      await createData(folder, image.name, image.url);
-    });
 
-    refreshData();
+    const image = await UploadImage(folder, file);
+    await createData(folder, image.name, image.url);
+
     closeModal();
   };
 
-  // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
-    if (!fileList) {
-      setPreview([]);
+    if (!file) {
+      setPreview("");
       return;
     }
-    files.forEach(async (file, i) => {
-      setPreview((preview) => [...preview, URL.createObjectURL(file)]);
-    });
-    // console.log(preview);
+
+    const objectUrl = URL.createObjectURL(file);
+    setPreview(objectUrl);
 
     // free memory when ever this component is unmounted
-    // return () => URL.revokeObjectURL();
-  }, [fileList]);
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file]);
   function closeModal() {
-    setFileList(null);
-    setPreview([]);
+    setFile(undefined);
+    setPreview("");
     setIsOpen(false);
   }
 
@@ -79,9 +59,9 @@ export const UploadGallery = () => {
         <button
           type="button"
           onClick={openModal}
-          className="rounded-md bg-gray-700 bg-opacity-20 px-4 py-2 text-sm font-bold text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          className="rounded-md hover:bg-gray-500 bg-opacity-20 px-4 py-2 text-sm font-bold text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
-          Upload Images
+          New Gallery
         </button>
       </div>
 
@@ -115,35 +95,21 @@ export const UploadGallery = () => {
                     as="h3"
                     className="text-lg text-center pb-5 font-medium leading-6 text-black"
                   >
-                    Upload Images
+                    Create New Gallery
                   </Dialog.Title>
+
                   {/* Input Gallery */}
                   <div className="flex justify-center mb-6 w-full">
-                    {/* <input
+                    <input
                       type="text"
                       className="text-base text-center rounded-md  border border-solid border-gray-300 focus:border-green-500 focus:outline-none"
                       onChange={handleInputChange}
                       placeholder="Enter Gallery Name"
-                    /> */}
-                    <Select
-                      folder={folder}
-                      setFolder={setFolder}
-                      galleries={AllGallery}
                     />
-
                   </div>
-                  {fileList && fileList.length != 0 ? (
+                  {file ? (
                     <div className="text-center">
-                      {preview.map((file, idx) => {
-                        return (
-                          <img
-                            key={idx}
-                            className="m-auto mb-5 block"
-                            src={file}
-                            alt=""
-                          />
-                        );
-                      })}
+                      <img className="m-auto mb-5 block" src={preview} alt="" />
                     </div>
                   ) : (
                     <div className="flex items-center justify-center w-full">
@@ -182,10 +148,8 @@ export const UploadGallery = () => {
                           type="file"
                           className="hidden"
                           onChange={handleFileChange}
-                          multiple
                         />
                       </label>
-                      {/* <div>{file && `${file.name} - ${file.type}`}</div> */}
                     </div>
                   )}
 
@@ -202,7 +166,7 @@ export const UploadGallery = () => {
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={handleUploadClick}
                     >
-                      Upload
+                      Create
                     </button>
                   </div>
                 </Dialog.Panel>

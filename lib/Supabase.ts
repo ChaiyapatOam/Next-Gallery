@@ -58,14 +58,14 @@ export async function UploadImage(folder: string, file: File) {
   if (error) console.log(error);
 
   const { data } = supabaseAdmin.storage.from("images").getPublicUrl(fileName);
-  console.log("URL=", data.publicUrl);
+  // console.log("URL=", data.publicUrl);
   const image = {
     name: fileName,
     url: data.publicUrl,
   };
   return image;
 }
-export async function createFolder() {}
+
 
 export async function getImageFolder(folderName: string) {
   const { data, error } = await supabaseAdmin.storage

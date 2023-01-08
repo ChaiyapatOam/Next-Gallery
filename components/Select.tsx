@@ -4,9 +4,11 @@ import { useRouter } from "next/router";
 
 const Select = ({
   galleries,
+  folder,
   setFolder,
 }: {
   galleries: GalleryType[] | [];
+  folder: string | null;
   setFolder: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
   const router = useRouter();
@@ -31,6 +33,9 @@ const Select = ({
         aria-label="Select Gallery"
         onChange={(e) => setFolder(e.target.value)}
       >
+        <option defaultValue={0} value="0">
+          Please Select
+        </option>
         {galleries.length != 0 ? (
           galleries.map((g, id) => {
             return (
@@ -43,6 +48,11 @@ const Select = ({
           <option value={name}>{name}</option>
         )}
       </select>
+      {folder == null || folder == "0" ? (
+        <p className="text-red-500 text-center">Plase Select</p>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
