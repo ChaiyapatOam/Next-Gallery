@@ -2,6 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["bit.ly","dodzmcmsqhtsodfwswmp.supabase.co"],
+    domains: ["bit.ly", "dodzmcmsqhtsodfwswmp.supabase.co"],
   },
+  output: "standalone",
 };
